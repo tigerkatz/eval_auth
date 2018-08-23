@@ -1,12 +1,13 @@
-import {Component} from "@angular/core";
-import {UserLoginService} from "../../service/user-login.service";
-import {Callback, CognitoUtil, LoggedInCallback} from "../../service/cognito.service";
-import {Router} from "@angular/router";
+import {Component} from '@angular/core';
+import {UserLoginService} from '../../service/user-login.service';
+import {Callback, CognitoUtil, LoggedInCallback} from '../../service/cognito.service';
+import {Router} from '@angular/router';
 
 
 export class Stuff {
     public accessToken: string;
     public idToken: string;
+    public refreshToken: string;
 }
 
 @Component({
@@ -19,7 +20,7 @@ export class JwtComponent implements LoggedInCallback {
 
     constructor(public router: Router, public userService: UserLoginService, public cognitoUtil: CognitoUtil) {
         this.userService.isAuthenticated(this);
-        console.log("in JwtComponent");
+        console.log('in JwtComponent');
 
     }
 
@@ -29,6 +30,7 @@ export class JwtComponent implements LoggedInCallback {
         } else {
             this.cognitoUtil.getAccessToken(new AccessTokenCallback(this));
             this.cognitoUtil.getIdToken(new IdTokenCallback(this));
+            this.cognitoUtil.getRefreshToken(new RefreshTokenCallback(this));
         }
     }
 }
@@ -58,5 +60,23 @@ export class IdTokenCallback implements Callback {
 
     callbackWithParam(result) {
         this.jwt.stuff.idToken = result;
+    }
+}
+
+export class RefreshTokenCallback implements Callback {
+    constructor(public jwt: JwtComponent) {
+
+    }
+
+    callback() {
+
+    }
+
+    callbackWithParam(result) {
+        console.log(result);
+        if (result.hasOwnProperty('token')) {
+            this.jwt.stuff.refreshToken = result['token'];
+        }
+
     }
 }

@@ -2,15 +2,20 @@
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#accesstoken">Access Token</a></li>
     <li><a data-toggle="tab" href="#idtoken">Id Token</a></li>
+    <li><a data-toggle="tab" href="#refreshToken">Refresh Token</a></li>
 </ul>
 
 <div class="tab-content">
     <div id="accesstoken" class="tab-pane fade in active">
         <h3>Access Token</h3>
-        <p>{{ stuff.accessToken }}</p>
+        <p style="word-wrap:break-word;">{{ stuff.accessToken }}</p>
     </div>
     <div id="idtoken" class="tab-pane fade">
         <h3>Id Token</h3>
-        <p>{{ stuff.idToken }}</p>
+        <p style="word-wrap:break-word;">{{ stuff.idToken }}</p>
+    </div>
+    <div id="refreshToken" class="tab-pane fade">
+        <h3>Refresh Token</h3>
+        <p style="word-wrap:break-word;">{{ stuff.refreshToken }}</p>
     </div>
 </div>
